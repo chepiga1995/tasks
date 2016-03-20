@@ -1,37 +1,45 @@
+<%
+var status_icons = {
+    'opened': 'play',
+    'pending': 'ok',
+    'completed': 'repeat'
+};
+var status_icon = status_icons[task.status.toLowerCase()];
+%>
 <div class="task">
-    <div class="status-color opened">
+    <div class="status-color <%= task.status.toLowerCase() %>">
 
     </div>
     <div class="col-xs-4">
 
         <div class="status-change">
-            <span class="glyphicon glyphicon-play"></span>
+            <span class="glyphicon glyphicon-<%= status_icon %>"></span>
         </div>
         <div class="title">
-            <p>Task examples</p>
+            <p><%= task.title %></p>
         </div>
     </div>
     <div class="border-ver"></div>
     <div class="col-xs-8">
         <div class="description">
-            <p>The ability of students to solve tasks is important for the development of their various skills. Students should be able to understand the information given, identify the critical features and their interrelationships, construct or apply an external representation, finally, take right decision for solving the task. Interest in contest essentially depends on tasks. </p>
+            <p><%= task.description %></p>
         </div>
         <div class="control">
-            <span class="glyphicon glyphicon-pencil"></span>
-            <span class="glyphicon glyphicon-remove"></span>
+            <span class="glyphicon glyphicon-pencil edit"></span>
+            <span class="glyphicon glyphicon-remove remove"></span>
         </div>
         <div class="options">
             <div class="col-9">
                 <span class="glyphicon glyphicon-map-marker"></span>
-                03/30/2016 13:23
+                <%= task.created %>
             </div>
             <div class="col-9">
                 <span class="glyphicon glyphicon-flag"></span>
-                03/30/2016 13:23
+                <%= task.deadline || '-' %>
             </div>
-            <div class="col-6">
+            <div class="col-6 <%= task.priority.toLowerCase() %>">
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
-                Low
+                <%= task.priority %>
             </div>
         </div>
     </div>

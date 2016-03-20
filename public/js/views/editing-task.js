@@ -1,5 +1,5 @@
 let template = _.template(require('../../templates/task/editing-task.html'));
-
+let moment = require('moment');
 _.extend(Backbone.Validation.callbacks, {
     valid: function (view, attr) {
         var $el = view.$('[name=' + attr + ']'),
@@ -29,7 +29,6 @@ let EditingTask = Backbone.View.extend({
             model.trigger('localSave', model);
             this.modal.modal('hide');
         });
-
         this.render();
     },
     render(){
@@ -39,6 +38,7 @@ let EditingTask = Backbone.View.extend({
         }));
         this.modal = this.$el.find('> .modal');
         this.modal.modal('show');
+        this.modal.on('hidden.bs.modal', this.remove.bind(this));
         $('#date').datetimepicker({
             format: "MM/DD/YYYY HH:mm"
         });
@@ -50,11 +50,17 @@ let EditingTask = Backbone.View.extend({
     },
     getData(){
         var data = {};
+        data.created = moment().format("MM/DD/YYYY HH:mm");
         $.each(this.$el.find('input, select, textarea'), (i, el) => {
             var name = $(el).attr('name');
             data[name] = $(el).val();
         });
         return data;
+    },
+    remove(){
+        $('#date').data("DateTimePicker").destroy();
+        this.stopListening(this.model);
+        Backbone.View.prototype.remove.apply(this);
     }
 });
 

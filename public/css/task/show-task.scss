@@ -1,5 +1,6 @@
 .task {
   border: 1px solid $gray-color;
+  border-top: 0;
   overflow: hidden;
   position: relative;
   & > div {
@@ -12,9 +13,6 @@
     width: 10px;
     position: absolute;
     left: 0;
-    &.opened {
-      background-color: lightblue;
-    }
   }
   .status-change {
     float: left;
@@ -74,4 +72,22 @@
       cursor: pointer;
     }
   }
+}
+.low {
+  color: $priority-low-color;
+}
+.medium {
+  color: $priority-medium-color;
+}
+.high {
+  color: $priority-high-color;
+}
+.opened {
+  background-color: $status-opened-color;
+}
+.pending {
+  background-color: $status-pending-color;
+}
+.completed {
+  background-color: $status-completed-color;
 }

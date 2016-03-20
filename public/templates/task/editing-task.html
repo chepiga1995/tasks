@@ -10,12 +10,12 @@
                     <form>
                         <div class="form-group">
                             <label for="title">Task title</label>
-                            <input type="text" name="title" class="form-control"  placeholder="Title">
+                            <input type="text" name="title" class="form-control"  placeholder="Title" value="<%= task.title %>">
                             <span class="help-block hidden"></span>
                         </div>
                         <div class="form-group">
                             <label for="description">Task description</label>
-                            <textarea class="form-control" rows="3" name="description" placeholder="Description"></textarea>
+                            <textarea class="form-control" rows="3" name="description" placeholder="Description"><%= task.description %></textarea>
                             <span class="help-block hidden"></span>
                         </div>
                         <div class="form-group">
@@ -25,9 +25,9 @@
 									<span class="glyphicon glyphicon-exclamation-sign"></span>
 								</span>
                                 <select class="form-control" title="Select priority..." name='priority'>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
+                                    <option value="Low" <%= task.priority == 'Low' ? 'selected' : '' %>>Low</option>
+                                    <option value="Medium" <%= task.priority == 'Medium' ? 'selected' : '' %>>Medium</option>
+                                    <option value="High" <%= task.priority == 'High' ? 'selected' : '' %>>High</option>
                                 </select>
                             </div>
                             <span class="help-block hidden"></span>
@@ -38,7 +38,7 @@
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
-                                <input type='text' class="form-control" name='deadline' id="date" />
+                                <input type='text' class="form-control" name='deadline' id="date"  value="<%= task.deadline %>"/>
                             </div>
                             <span class="help-block hidden"></span>
                         </div>
