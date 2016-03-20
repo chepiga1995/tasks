@@ -11,13 +11,15 @@ var cleanCSS = require('gulp-clean-css');
 var path = {
     css: ['public/css/*.scss', 'public/css/*.css'],
     js: 'public/js/main.js',
-    images: 'public/images/*'
+    images: 'public/images/*',
+    fonts: 'public/fonts/*'
 };
 
 var dist = {
     css: 'dist/css/',
     js: 'dist/js/',
-    images: 'dist/images/'
+    images: 'dist/images/',
+    fonts: 'dist/fonts/'
 };
 
 gulp.task('browserify:dev', function() {
@@ -61,12 +63,17 @@ gulp.task('copy-images', function() {
         .pipe(gulp.dest(dist.images));
 });
 
+gulp.task('copy-fonts', function() {
+    gulp.src(path.fonts)
+        .pipe(gulp.dest(dist.fonts));
+});
+
 gulp.task('watch', function() {
     gulp.watch(path.css,['styles:dev']);
     gulp.watch(path.js,['browserify:dev']);
 });
 
-gulp.task('build:dev', ['copy-images', 'styles:dev', 'browserify:dev']);
-gulp.task('build:production', ['copy-images', 'styles:production', 'browserify:production']);
+gulp.task('build:dev', ['copy-images', 'copy-fonts', 'styles:dev', 'browserify:dev']);
+gulp.task('build:production', ['copy-images', 'copy-fonts', 'styles:production', 'browserify:production']);
 gulp.task('build', ['build:dev']);
 gulp.task('default', ['build', 'watch']);

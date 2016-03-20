@@ -1,9 +1,13 @@
 //Import global variables
-var jquery = require('jquery');
-var underscore = require('underscore');
-var backbone = require('backbone');
+let jquery = require('jquery');
+let underscore = require('underscore');
+let backbone = require('backbone');
 global.$ = jquery;
 global.jQuery = jquery;
 global._ = underscore;
 global.Backbone = backbone;
+require('./lib/bootstrap-datetimepicker');
+$('#date').datetimepicker({
+    format: "MM/DD/YYYY HH:mm"
+});
 
