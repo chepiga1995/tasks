@@ -13,7 +13,7 @@ let ShowTask = Backbone.View.extend({
         'Completed': 'Opened'
     },
     initialize({eventsControl}){
-        this.listenTo(event, 'delete', this.remove.bind(this));
+        this.listenTo(eventsControl, 'delete', this.remove.bind(this));
         this.render();
     },
     render(){

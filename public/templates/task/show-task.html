@@ -25,7 +25,9 @@ var status_icon = status_icons[task.status.toLowerCase()];
             <p><%= task.description %></p>
         </div>
         <div class="control">
-            <span class="glyphicon glyphicon-pencil edit"></span>
+            <% if(task.status != 'Completed') { %>
+                <span class="glyphicon glyphicon-pencil edit"></span>
+            <% } %>
             <span class="glyphicon glyphicon-remove remove"></span>
         </div>
         <div class="options">

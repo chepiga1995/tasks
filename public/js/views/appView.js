@@ -6,7 +6,8 @@ let ShowTask = require('./show-task');
 let appView = Backbone.View.extend({
     el: '#content',
     events: {
-        'click #create': 'createTask'
+        'click #create': 'createTask',
+        'change .checkbox input': 'refresh'
     },
     initialize({collection}) {
         this.collection = collection;
@@ -21,18 +22,31 @@ let appView = Backbone.View.extend({
         if(!this.collection.length){
             return this.addBlank();
         }
-        let arr_of_el = [];
+        this.arr_of_el = [];
+        this.eventsControl.trigger('delete');
+
+        let collection = this.collection;
+        collection = this.filter(collection);
+        collection = this.sort(collection);
+        collection.forEach(this.initTaskView.bind(this));
+        this.$el.find('#tasks').append(this.arr_of_el);
+    },
+    initTaskView: function(model){
         let eventsControl = this.eventsControl;
-        eventsControl.trigger('delete');
-        this.collection.forEach((model) => {
-            let el = $(`<div class="task" data-id="${model.id}"></div>`);
-            this.listenTo(model, 'destroy', this.refresh.bind(this));
-            this.listenTo(model, 'reload', this.refresh.bind(this));
-            new ShowTask({model, el, eventsControl});
-            arr_of_el.push(el);
+        let el = $(`<div class="task" data-id="${model.id}"></div>`);
+        this.listenTo(model, 'destroy', this.refresh.bind(this));
+        this.listenTo(model, 'reload', this.refresh.bind(this));
+        new ShowTask({model, el, eventsControl});
+        this.arr_of_el.push(el);
+    },
+    filter(collection){
+        var showCompleted = $('.checkbox input').prop('checked');
+        return collection.filter((model) => {
+            return showCompleted || model.get('status') != 'Completed';
         });
-        this.$el.find('#tasks').html('');
-        this.$el.find('#tasks').append(arr_of_el);
+    },
+    sort(collection){
+        return collection;
     },
     addBlank(){
         this.$el.find('#tasks').append(blank_template());
