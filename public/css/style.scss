@@ -1,0 +1,11 @@
+@import './bootstrap.min.css';
+@import './bootstrap-datetimepicker.min.css';
+@import 'variables';
+@import 'header';
+@import 'content';
+@import 'footer';
+
+body {
+  min-height: 1000px;
+  position: relative;
+}

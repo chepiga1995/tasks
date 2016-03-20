@@ -1,0 +1,77 @@
+.task {
+  border: 1px solid $gray-color;
+  overflow: hidden;
+  position: relative;
+  & > div {
+    height: 100%;
+    padding: 0;
+    position: static;
+  }
+  .status-color {
+    height: 100%;
+    width: 10px;
+    position: absolute;
+    left: 0;
+    &.opened {
+      background-color: lightblue;
+    }
+  }
+  .status-change {
+    float: left;
+    width: 60px;
+    position: absolute;
+    height: 100%;
+    span {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: $gray-dark-color;
+      cursor: pointer;
+    }
+  }
+  .title {
+    float: left;
+    margin: 5px 5px 5px 65px;
+    width: calc(100% - 70px);
+    p {
+      font-weight: 500;
+    }
+  }
+  .options {
+    height: 30px;
+    position: absolute;
+    width: 66.6666%;
+    bottom: 0;
+    padding-top: 5px;
+    border-top: 1px solid $gray-color;
+    & > div {
+      padding: 0 10px;
+      float: left;
+    }
+    .col-9 {
+      width: 37.5%;
+    }
+    .col-6 {
+      width: 25%;
+    }
+  }
+  .description {
+    padding-bottom: 30px;
+    p {
+      margin: 5px;
+    }
+  }
+  .control {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    color: $gray-dark-color;
+    & > span {
+      padding: 0 5px;
+      cursor: pointer;
+    }
+  }
+}

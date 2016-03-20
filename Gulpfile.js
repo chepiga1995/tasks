@@ -9,7 +9,7 @@ var buffer = require('vinyl-buffer');
 var cleanCSS = require('gulp-clean-css');
 
 var path = {
-    css: ['public/css/*.scss', 'public/css/*.css'],
+    css: 'public/css/style.scss',
     js: 'public/js/main.js',
     images: 'public/images/*',
     fonts: 'public/fonts/*'
@@ -69,8 +69,8 @@ gulp.task('copy-fonts', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(path.css,['styles:dev']);
-    gulp.watch(path.js,['browserify:dev']);
+    gulp.watch(['public/css/*.scss', 'public/css/*.css', 'public/css/**/*.scss'] ,['styles:dev']);
+    gulp.watch(['public/js/*', 'public/js/**/*', 'public/templates/*', 'public/templates/**/*'],['browserify:dev']);
 });
 
 gulp.task('build:dev', ['copy-images', 'copy-fonts', 'styles:dev', 'browserify:dev']);
