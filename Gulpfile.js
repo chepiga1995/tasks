@@ -7,6 +7,7 @@ var concatCss = require('gulp-concat-css');
 var uglify = require('gulp-uglify');
 var buffer = require('vinyl-buffer');
 var cleanCSS = require('gulp-clean-css');
+var babelify = require("babelify");
 
 var path = {
     css: 'public/css/style.scss',
@@ -35,9 +36,9 @@ gulp.task('browserify:dev', function() {
 gulp.task('browserify:production', function() {
     return browserify(path.js)
         .transform(stringify, {
-            appliesTo: { includeExtensions: ['.html'] },
-            minify: true
+            appliesTo: { includeExtensions: ['.html'] }
         })
+        .transform(babelify, {presets: ["es2015"]})
         .bundle()
         .pipe(source('main.js'))
         .pipe(buffer())
