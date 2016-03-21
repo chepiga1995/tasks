@@ -6,43 +6,42 @@ var status_icons = {
 };
 var status_icon = status_icons[task.status.toLowerCase()];
 %>
-<div class="task">
-    <div class="status-color <%= task.status.toLowerCase() %>">
+<div class="status-color <%= task.status.toLowerCase() %>">
 
-    </div>
-    <div class="col-xs-4">
+</div>
+<div class="col-xs-4">
 
-        <div class="status-change">
-            <span class="glyphicon glyphicon-<%= status_icon %>"></span>
-        </div>
-        <div class="title">
-            <p><%= task.title %></p>
-        </div>
+    <div class="status-change">
+        <span class="glyphicon glyphicon-<%= status_icon %>"></span>
     </div>
-    <div class="border-ver"></div>
-    <div class="col-xs-8">
-        <div class="description">
-            <p><%= task.description %></p>
+    <div class="title">
+        <p><%= task.title %></p>
+    </div>
+</div>
+<div class="border-ver"></div>
+<div class="col-xs-8">
+    <div class="description">
+        <p><%= task.description %></p>
+    </div>
+    <div class="control">
+        <% if(task.status != 'Completed') { %>
+            <span class="glyphicon glyphicon-pencil edit"></span>
+        <% } %>
+        <span class="glyphicon glyphicon-remove remove"></span>
+    </div>
+    <div class="options">
+        <div class="col-9">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <%= task.created %>
         </div>
-        <div class="control">
-            <% if(task.status != 'Completed') { %>
-                <span class="glyphicon glyphicon-pencil edit"></span>
-            <% } %>
-            <span class="glyphicon glyphicon-remove remove"></span>
+        <div class="col-9">
+            <span class="glyphicon glyphicon-flag"></span>
+            <%= task.deadline || '-' %>
         </div>
-        <div class="options">
-            <div class="col-9">
-                <span class="glyphicon glyphicon-map-marker"></span>
-                <%= task.created %>
-            </div>
-            <div class="col-9">
-                <span class="glyphicon glyphicon-flag"></span>
-                <%= task.deadline || '-' %>
-            </div>
-            <div class="col-6 <%= task.priority.toLowerCase() %>">
-                <span class="glyphicon glyphicon-exclamation-sign"></span>
-                <%= task.priority %>
-            </div>
+        <div class="col-6 <%= task.priority.toLowerCase() %>">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+            <%= task.priority %>
         </div>
     </div>
 </div>
+

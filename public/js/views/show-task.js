@@ -1,11 +1,12 @@
 let template = _.template(require('../../templates/task/show-task.html'));
+let modal = _.template(require('../../templates/task/confirm-delete.html'));
 let EditingTask = require('./editing-task');
 
 let ShowTask = Backbone.View.extend({
     events: {
         'click .status-change': 'changeStatus',
         'click .edit': 'edit',
-        'click .remove': 'delete'
+        'click .remove': 'ask'
     },
     status_move: {
         'Opened': 'Pending',
@@ -31,7 +32,14 @@ let ShowTask = Backbone.View.extend({
         this.model.save();
         this.model.trigger('reload');
     },
-    delete(){
+    ask(){
+        let modals = $('#modals');
+        modals.find('.delete-task').off();
+        modals.html(modal());
+        modals.find('> .modal').modal('show');
+        modals.find('.delete-task').on('click', this.clear.bind(this));
+    },
+    clear(){
         this.model.destroy();
         this.model.trigger('reload');
         Backbone.View.prototype.remove.apply(this);

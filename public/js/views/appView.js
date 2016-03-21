@@ -19,11 +19,12 @@ let appView = Backbone.View.extend({
         this.$el.html(template());
     },
     refresh(){
+        this.eventsControl.trigger('delete');
         if(!this.collection.length){
             return this.addBlank();
         }
         this.arr_of_el = [];
-        this.eventsControl.trigger('delete');
+        this.$el.find('#tasks').html('');
 
         let collection = this.collection;
         collection = this.filter(collection);
@@ -49,7 +50,7 @@ let appView = Backbone.View.extend({
         return collection;
     },
     addBlank(){
-        this.$el.find('#tasks').append(blank_template());
+        this.$el.find('#tasks').html(blank_template());
     },
     createTask(){
         this.editingModel =  new Task;
