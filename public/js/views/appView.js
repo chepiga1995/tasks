@@ -22,7 +22,8 @@ let appView = Backbone.View.extend({
     },
     refresh(){
         this.eventsControl.trigger('delete');
-        this.$el.find('#tasks').html('');
+        var tasks = this.$el.find('#tasks');
+        tasks.html('');
         if(!this.collection.length){
             return this.addBlank();
         }
@@ -32,11 +33,14 @@ let appView = Backbone.View.extend({
         collection = this.filter(collection);
         collection = this.sort(collection);
         collection.forEach(this.initTaskView.bind(this));
-        this.$el.find('#tasks').append(this.arr_of_el);
+        tasks.append(this.arr_of_el);
+        requestAnimationFrame(() => {
+            tasks.find('> .task').addClass('normal');
+        });
     },
     initTaskView: function(model){
         let eventsControl = this.eventsControl;
-        let el = $(`<div class="task" data-id="${model.id}"></div>`);
+        let el = $(`<div class="task ${model.get('animation') || ''}" data-id="${model.id}"></div>`);
         this.stopListening(model);
         this.listenTo(model, 'destroy', this.waiting.bind(this));
         this.listenTo(model, 'reload', this.refresh.bind(this));

@@ -1,4 +1,25 @@
 .task {
+  &.change {
+    background-color: #ffea49;
+    transition: background-color $animation-time;
+  }
+  &.in {
+    opacity: 0;
+    transition: opacity $animation-time;
+  }
+  &.normal {
+    background-color: white;
+    opacity: 1;
+  }
+  &.out {
+    opacity: 0;
+    transition: opacity $animation-time;
+  }
+}
+
+
+
+.task {
   border: 1px solid $gray-color;
   border-top: 0;
   overflow: hidden;

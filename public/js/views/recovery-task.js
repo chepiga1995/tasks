@@ -18,6 +18,7 @@ let RecoveryTask = Backbone.View.extend({
     recovery(){
         this.active = false;
         this.remove();
+        this.model.set('animation', 'in');
         this.model.trigger('localSave', this.model);
     },
     startTimer(){

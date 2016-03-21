@@ -22,6 +22,10 @@ let EditingTask = Backbone.View.extend({
     events: {
         'click #save': 'validate'
     },
+    actions: {
+        'edit': 'change',
+        'create': 'in'
+    },
     initialize({action, model}){
         this.action = action;
         Backbone.Validation.bind(this, {model});
@@ -50,6 +54,7 @@ let EditingTask = Backbone.View.extend({
     },
     getData(){
         var data = {};
+        data.animation = this.actions[this.action];
         data.created = moment().format("MM/DD/YYYY HH:mm");
         $.each(this.$el.find('input, select, textarea'), (i, el) => {
             var name = $(el).attr('name');
