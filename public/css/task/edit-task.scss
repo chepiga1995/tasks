@@ -7,3 +7,11 @@
     -webkit-appearance: none;
   }
 }
+@media screen and (max-width: $brake-point) {
+  .task.editing {
+    padding: 10px;
+    .input-group {
+      width: 80%;
+    }
+  }
+}

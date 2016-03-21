@@ -46,6 +46,7 @@ let appView = Backbone.View.extend({
     waiting(model){
         this.collection.remove(model);
         this.refresh();
+        this.$el.find('#recovery').remove();
         var el = $('<div id="recovery"></div>');
         this.$el.find('> .top').after(el);
         new RecoveryTask({model, el, time: 5});

@@ -56,3 +56,9 @@
 	float: right;
 }
 
+@media screen and (max-width: $brake-point) {
+	#content{
+		min-width: 250px;
+		width: 100%;
+	}
+}
