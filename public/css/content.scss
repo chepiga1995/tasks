@@ -31,9 +31,22 @@
 	height: 100%;
 	left: calc(100% / 3);
 }
-
-
-
+#recovery {
+	position: absolute;
+	left: calc(50% - 90px);
+	background-color: orange;
+	opacity: 0.8;
+	width: 180px;
+	margin-top: -20px;
+	p {
+		float: left;
+		margin: 0 5px;
+	}
+	.recovery {
+		text-decoration: underline;
+		cursor: pointer;
+	}
+}
 
 .left {
 	float: left;

@@ -1,7 +1,9 @@
 let template  = _.template(require('../../templates/content.html'));
 let blank_template = _.template(require('../../templates/task/no-task.html'));
+let moment = require('moment');
 let Task = require('../models/Task');
 let EditingTask = require('./editing-task');
+let RecoveryTask = require('./recovery-task');
 let ShowTask = require('./show-task');
 let appView = Backbone.View.extend({
     el: '#content',
@@ -20,11 +22,11 @@ let appView = Backbone.View.extend({
     },
     refresh(){
         this.eventsControl.trigger('delete');
+        this.$el.find('#tasks').html('');
         if(!this.collection.length){
             return this.addBlank();
         }
         this.arr_of_el = [];
-        this.$el.find('#tasks').html('');
 
         let collection = this.collection;
         collection = this.filter(collection);
@@ -35,10 +37,19 @@ let appView = Backbone.View.extend({
     initTaskView: function(model){
         let eventsControl = this.eventsControl;
         let el = $(`<div class="task" data-id="${model.id}"></div>`);
-        this.listenTo(model, 'destroy', this.refresh.bind(this));
+        this.stopListening(model);
+        this.listenTo(model, 'destroy', this.waiting.bind(this));
         this.listenTo(model, 'reload', this.refresh.bind(this));
         new ShowTask({model, el, eventsControl});
         this.arr_of_el.push(el);
+    },
+    waiting(model){
+        this.collection.remove(model);
+        this.refresh();
+        var el = $('<div id="recovery"></div>');
+        this.$el.find('> .top').after(el);
+        new RecoveryTask({model, el, time: 5});
+        this.listenTo(model, 'localSave', this.saveChanges.bind(this));
     },
     filter(collection){
         var showCompleted = $('.checkbox input').prop('checked');
@@ -47,7 +58,9 @@ let appView = Backbone.View.extend({
         });
     },
     sort(collection){
-        return collection;
+        return _.sortBy(collection, (model) => {
+            return moment(model.get('created'), "MM/DD/YYYY HH:mm").valueOf();
+        });
     },
     addBlank(){
         this.$el.find('#tasks').html(blank_template());
@@ -60,7 +73,7 @@ let appView = Backbone.View.extend({
     },
     saveChanges(model){
         this.stopListening(model, 'localSave');
-        this.collection.set(model);
+        this.collection.add(model);
         model.save();
         this.refresh();
     }

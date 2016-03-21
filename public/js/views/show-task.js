@@ -40,9 +40,8 @@ let ShowTask = Backbone.View.extend({
         modals.find('.delete-task').on('click', this.clear.bind(this));
     },
     clear(){
-        this.model.destroy();
-        this.model.trigger('reload');
         Backbone.View.prototype.remove.apply(this);
+        this.model.destroy();
     },
     edit(){
         $('body').append('<div id="modal"></div>');
